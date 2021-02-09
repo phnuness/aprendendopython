@@ -31,15 +31,10 @@ COLUNA_DT_DESLIG = 4
 COLUNA_TERMCONTRIB = 5
 COLUNA_TEMPSERVANTERIOR = 6
     
-for linha in salarios.iter_rows(min_row=1, max_row=36):
-    salario = linha[0].value
-    for celula in simulacao.iter_rows(min_row=17, max_row= 52, min_col=9, max_col=9):
-        celula[0].value = salario
-    
     # Itera sobre as linhas, ou seja, para cada linha em dados acontece a iteração começando pela linha 2 (pulando os cabeçalhos)
 for row in dados.iter_rows(min_row=2):
-        #print(row[0].value)
-        # Em cada linha abaixo o \"objeto\" que é a célula selecionada recebe o valor que consta na célula que está sendo iterada no momento baseada no índice da coluna
+    #print(row[0].value)
+    # Em cada linha abaixo o \"objeto\" que é a célula selecionada recebe o valor que consta na célula que está sendo iterada no momento baseada no índice da coluna
     simulacao['O3'].value = row[COLUNA_CPF].value
     simulacao['C3'].value = row[COLUNA_NOME].value
     simulacao['C4'].value = row[COLUNA_DT_NASC].value
@@ -48,7 +43,12 @@ for row in dados.iter_rows(min_row=2):
     simulacao['C7'].value = row[COLUNA_TERMCONTRIB].value
     simulacao['O6'].value = row[COLUNA_TEMPSERVANTERIOR].value
     
-        #wb1.save('C:/Users/pedro/Desktop/Automatizacao/%s.xlsx' % row[COLUNA_NOME].value)
+    cont = 17
+
+    for linha in salarios.iter_rows(min_row=1, max_row=36):
+        salario = linha[0].value
+        simulacao['I%d' % cont].value = salario
+        cont += 1
+    #wb1.save('C:/Users/pedro/Desktop/Automatizacao/%s.xlsx' % row[COLUNA_NOME].value)
             
     wb1.save('C:/Users/pedro/Desktop/Automatizacao/%s.xlsx' % row[COLUNA_NOME].value)
-

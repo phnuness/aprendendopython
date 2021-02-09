@@ -18,8 +18,6 @@ genero = pd.DataFrame(df.groupby(['PLANO', 'IDADE', 'GENERO']).sum()['UNIDADE'])
 
 genero = genero.reset_index()
 
-genero
-
 genero['INTERVALO'] = [ 'Até 24 anos' if i <= 24 else
                         '24 a 35' if i >23 and i <36 else
                         '36 a 55' if i >35 and i <56 else
