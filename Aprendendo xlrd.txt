@@ -1,0 +1,18 @@
+# Importando dados do excel
+
+import xlrd
+
+# Abrindo o arquivo
+wb = xlrd.open_workbook('C:/Users/pedro/Desktop/Automatizacao/Dados.xlsx')
+
+# Gravando a planilha dadosparticipante na variável dados
+dados = wb.sheet_by_name('DadosParticipante')
+
+# A variável lin receberá o número de linhas da tabela
+lin = dados.nrows
+
+# Váriavel que receberá as informações da linha 2. Pois a linha um é cabeçalho. Para receber linhas dados.row_values(), para receber colunas dados.col_values()
+
+participante = dados.row_values(1)
+
+print(participante)

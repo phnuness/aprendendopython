@@ -1,6 +1,7 @@
 # Importando a biclioteca para minupulação de excel\n",
 import openpyxl
 import shutil
+import pdb # biblioteca para debugar o código
    
     # Buscando os módulos para leitura e criação de planilhas
 from openpyxl import workbook, load_workbook
@@ -30,7 +31,7 @@ COLUNA_DT_ADESAO = 3
 COLUNA_DT_DESLIG = 4
 COLUNA_TERMCONTRIB = 5
 COLUNA_TEMPSERVANTERIOR = 6
-    
+
     # Itera sobre as linhas, ou seja, para cada linha em dados acontece a iteração começando pela linha 2 (pulando os cabeçalhos)
 for row in dados.iter_rows(min_row=2):
     #print(row[0].value)
@@ -45,10 +46,10 @@ for row in dados.iter_rows(min_row=2):
     
     cont = 17
 
-    for linha in salarios.iter_rows(min_row=1, max_row=36):
-        salario = linha[0].value
+    for linha in salarios.iter_rows(min_row=2, max_row=37):
+        salario = linha[index].value
         simulacao['I%d' % cont].value = salario
         cont += 1
-    #wb1.save('C:/Users/pedro/Desktop/Automatizacao/%s.xlsx' % row[COLUNA_NOME].value)
-            
+              
     wb1.save('C:/Users/pedro/Desktop/Automatizacao/%s.xlsx' % row[COLUNA_NOME].value)
+    index += 1

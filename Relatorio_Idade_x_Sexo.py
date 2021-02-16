@@ -27,3 +27,5 @@ genero['INTERVALO'] = [ 'Até 24 anos' if i <= 24 else
 intervalo = pd.DataFrame(genero.groupby(['INTERVALO', 'PLANO'])['F', 'M'].sum())
 
 intervalo.to_excel(plano)
+
+print(intervalo)

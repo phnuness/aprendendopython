@@ -1,0 +1,13 @@
+import pandas as pd 
+import openpyxl
+
+dados = "C:\\Users\\pedro\\Desktop\\OBITOS.xlsx"
+aba = "OBITOS2019"
+
+def obter_dados (caminho):
+    dataframe = pd.read_excel(caminho, sheet_name=aba)
+    return dataframe
+
+df = obter_dados(dados)
+
+plano = pd.DataFrame(df.groupby([]))

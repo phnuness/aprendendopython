@@ -1,0 +1,64 @@
+'Importanto a biblioteca datetime para correção do formato das datas'
+
+from datetime import datetime
+
+'Importando pandas e biblioteca para manipulação de excel'
+
+import pandas as pd
+import openpyxl
+
+'Criando variáveis que irão receber o caminho dos arquivos com os dados'
+
+dados = 'C:\\Users\\pedro\\Desktop\\Automatizacao\\Dados.xlsx' # input('Insira aqui o caminho do arquivo com as informações do participante: ')
+salarios = 'C:\\Users\\pedro\\Desktop\\Automatizacao\\Salarios.xlsx'# input('Insira aqui o caminho do arquivo com as informações do salários participante: ')
+simulacao = 'C:\\Users\\pedro\\Desktop\\Automatizacao\\Simulacao_Prebeg.xlsx'# input('Insira aqui o caminho do arquivo com o modelo de simulação do plano: ')
+
+"Criando função que receberá a informação do caminho e irá retornar um dataframe"
+
+def obter_dados (caminho):
+    dataframe = pd.read_excel(caminho)
+    return dataframe
+
+'Criando variáveis que chamam a função obter_dados e armazenam o dataframe de cada caminho'
+
+dados_participante = obter_dados(dados)
+salarios_participante = obter_dados(salarios)
+simulacao_prebeg = obter_dados(simulacao)
+
+'Criando variáveis que rebem as informações de células específicas dos dataframes'
+'A função strftime() auxilia a formatação da data para o modelo BR'
+
+cpf = dados_participante.iloc[0, 0]
+nome = dados_participante.iloc[0, 1]
+dt_nasc = dados_participante.iloc[0, 2].strftime('%d/%m/%Y')
+dt_adesao = dados_participante.iloc[0, 3].strftime('%d/%m/%Y')
+dt_deslig = dados_participante.iloc[0, 4].strftime('%d/%m/%Y')
+dt_termcontrib = dados_participante.iloc[0, 5].strftime('%d/%m/%Y')
+dt_servanterior = dados_participante.iloc[0, 6]
+#ultimos_36_salarios = salarios_participante.loc[0:35, "Salarios"]
+
+'Inserindo as informações do participante no dataframde de simulação'
+
+simulacao_prebeg.iloc[1, 13] = cpf
+simulacao_prebeg.iloc[1, 2] = nome
+simulacao_prebeg.iloc[2, 2] = dt_nasc
+simulacao_prebeg.iloc[3, 2] = dt_adesao
+simulacao_prebeg.iloc[4, 2] = dt_deslig
+simulacao_prebeg.iloc[4, 13] = dt_servanterior
+simulacao_prebeg.iloc[15:51, 8] = salarios_participante.loc[15:51, "Salarios"]
+
+simulacao_prebeg.to_excel('Prebeg.xlsx')
+
+#'Para manipulação das informações, aqui a variável salarios_participante que recebeu o dataframe dos salarios vai separar a coluna salários e na primeira linha que é representada pela informação .values[0] vai inserir o valor 1'
+
+# salarios_participante['Salarios'].values[0] = 1
+
+#'Essa função print está realizando o retorno da operação realizada anteiormente'
+
+# print(salarios_participante['Salarios'].values[0])
+
+#'Para então preencher várias células na planilha de simulação, precisarei utilizar uma iteração (for)(if) baseada na lógica acima porém de forma diferente conforme abaixo. Onde eu informarei a variável referente ao dataframe da simulação e a posição (coluna e no valor do index eu insiro a variável criada no (for)) que receberá a informação.'
+
+# simulacao['Salarios'].values[cont] = salarios_participante['Salarios'].values[cont]
+# print(salarios_participante['Salarios'].values[0])
+
