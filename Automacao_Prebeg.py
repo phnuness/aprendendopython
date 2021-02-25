@@ -32,6 +32,7 @@ COLUNA_DT_DESLIG = 4
 COLUNA_TERMCONTRIB = 5
 COLUNA_TEMPSERVANTERIOR = 6
 
+index = 0
     # Itera sobre as linhas, ou seja, para cada linha em dados acontece a iteração começando pela linha 2 (pulando os cabeçalhos)
 for row in dados.iter_rows(min_row=2):
     #print(row[0].value)
