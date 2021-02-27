@@ -123,3 +123,35 @@ obitos_intervalo_idade_natural_2020 = pd.DataFrame(obitos_intervalo_idade_2020.g
 #total_obitos_intervalo_idades_2019 = pd.DataFrame(obitos_intervalo_idade_natural_2019['NATURAL'] + obitos_intervalo_idade_covid_2019 ['COVID19'])
 total_obitos_intervalo_idades_2020 = pd.DataFrame(obitos_intervalo_idade_natural_2020['NATURAL'] + obitos_intervalo_idade_covid_2020 ['COVID19'])
 #total_obitos_intervalo_idades_2021 = pd.DataFrame(obitos_intervalo_idade_natural_2021['NATURAL'] + obitos_intervalo_idade_covid_2019 ['COVID19'])
+
+# Dataframe gerado a partir da base de óbitos filtrado por MES_OBITO, que retorna a quantidade de óbitos para cada mes
+
+total_obitos_mes_2019 = pd.DataFrame(obitos_2019.groupby('MES_OBITO')['UNIDADE'].sum())
+total_obitos_mes_2020 = pd.DataFrame(obitos_2020.groupby('MES_OBITO')['UNIDADE'].sum())
+total_obitos_mes_2021 = pd.DataFrame(obitos_2021.groupby('MES_OBITO')['UNIDADE'].sum())
+
+# Dataframe gerado a partir da base de óbitos filtrado por PLANO, MES_OBITO e MOTIVO, que retorna a quantidade de óbitos por covid ou natural para cada plano e mes
+
+#obitos_plano_mes_motivo_2019 = pd.DataFrame(obitos_2019.groupby(['PLANO', 'MES_OBITO', 'MOTIVO']).sum()['UNIDADE']).unstack()['UNIDADE'].fillna(0)
+obitos_plano_mes_motivo_2020 = pd.DataFrame(obitos_2020.groupby(['PLANO', 'MES_OBITO', 'MOTIVO']).sum()['UNIDADE']).unstack()['UNIDADE'].fillna(0)
+#obitos_plano_mes_motivo_2021 = pd.DataFrame(obitos_2021.groupby(['PLANO', 'MES_OBITO', 'MOTIVO']).sum()['UNIDADE']).unstack()['UNIDADE'].fillna(0)
+
+# Dataframe gerado a partir do dataframe filtrato por PLANO, MES_OBITO e MOTIVO, que retorna a quantidade de óbitos por covid ou natural para cada mes
+
+#obitos_mes_motivo_2019 = pd.DataFrame(obitos_plano_mes_motivo_2019.groupby(['MES_OBITO'])['COVID19','NATURAL'].sum())
+obitos_mes_motivo_2020 = pd.DataFrame(obitos_plano_mes_motivo_2020.groupby(['MES_OBITO'])['COVID19','NATURAL'].sum())
+#obitos_mes_motivo_2021 = pd.DataFrame(obitos_plano_mes_motivo_2021.groupby(['MES_OBITO'])['COVID19','NATURAL'].sum())
+
+# Resetando o index
+
+total_obitos_mes_2019 = total_obitos_mes_2019.reset_index()
+total_obitos_mes_2020 = total_obitos_mes_2020.reset_index()
+total_obitos_mes_2021 = total_obitos_mes_2021.reset_index()
+
+# Dataframe com total de óbitos acumulados de 2019, 2020 e 2021
+
+total_obitos_mes_2019_2020_2021 = pd.concat([total_obitos_mes_2019, total_obitos_mes_2020, total_obitos_mes_2021], axis=1).fillna('')
+total_obitos_mes_2019_2020_2021.columns.values[1] = '2019'
+total_obitos_mes_2019_2020_2021.columns.values[3] = '2020'
+total_obitos_mes_2019_2020_2021.columns.values[5] = '2021'
+total_obitos_mes_2019_2020_2021 = total_obitos_mes_2019_2020_2021.iloc[:,[0,1,3,5]]
