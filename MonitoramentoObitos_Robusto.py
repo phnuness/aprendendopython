@@ -209,7 +209,7 @@ while True:
     elif selecao == 3:
         system('cls')
         cabecalho('TOTAL DE ÓBITOS ANUAL POR PLANO')
-        print(total_obitos_plano.set_index('PLANO'))
+        print(total_obitos_plano)
         print(linha())
         input('Enter para continuar...')
 
@@ -237,7 +237,7 @@ while True:
     elif selecao == 7:
         system('cls')
         cabecalho('TOTAL DE ÓBITOS ANUAL POR INTERVALO DE IDADES')
-        print(total_obitos_intervalo_idades.set_index('INTERVALO_IDADES'))
+        print(total_obitos_intervalo_idades)
         print(linha())
         input('Enter para continuar...')
 
