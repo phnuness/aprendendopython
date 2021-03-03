@@ -1,3 +1,4 @@
+
 import pandas as pd 
 import numpy as np
 import openpyxl
@@ -117,3 +118,174 @@ df_total_obitos_mes = total_obitos_mes.reset_index()
 
 
 df_total_obitos_mes_ano = df_total_obitos_mes.groupby(['MES_OBITO', 'ANO']).sum().unstack()['TOTAL'].fillna(0)
+
+def linha(tam=40):
+    """Gerar linha
+    Args:
+        tam (int, optional): tamanho da linha. Defaults to 40.
+    Returns:
+        str: linha com tamanho informado
+    """
+    tam = 50
+    return '=' * tam
+
+def cabecalho(msg):
+    """Cabecalho formatado
+    Args:
+        msg (str): Texto centralizado
+    """
+    print(linha())
+    print(msg.center(50))
+    print(linha())
+
+def leia_int(msg):
+    """Ler numeros inteiros
+    Args:
+        msg (str): Mensagem mostrada ao usuario
+    Returns:
+        int: valor inteiro
+    """
+    while True:
+        try:
+            n = int(input(msg))
+        except:
+            print('ERRO! Por favor digite um valor inteiro válido.')
+            continue
+        else:
+            return n
+
+def formatar_menu(lista):
+    """Criar menu formatado sobre uma lista
+    Args:
+        lista (str): lista com as opcoes do menu
+    """
+    for pos, item in enumerate(lista):
+        print(f'[{pos+1}] - {item}')
+    print(linha())
+
+def opcao_menu_principal():
+    """Ler opcao informada pelo usuário
+    Returns:
+        int: Opcao informada
+    """
+    op = leia_int('Sua opção: ')
+    return op
+
+while True:
+    # Menu principal do Sistema
+    cabecalho('Menu Principal')
+    formatar_menu([
+        'Total de óbitos anual',
+        'Total de óbitos anual por motivo',
+        'Total de óbitos por plano',
+        'Total de óbitos por plano e motivo',
+        'Total de óbitos por estado',
+        'Total de óbitos por estado e motivo',
+        'Total de óbitos por intervalo de idades',
+        'Total de óbitos por intervalo de idades e motivo',
+        'Total de óbitos por plano com intervalo de idades e motivo',
+        'Total de óbitos por mês',
+        'Total de óbitos por mês e motivo',
+        'Total de óbitos por anos e meses',
+        'Sair do sistema'
+
+    ])
+    selecao = opcao_menu_principal()
+
+    if selecao == 1:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL')
+        print(total_obitos)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 2:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR MOTIVO')
+        print(total_obitos_motivo)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 3:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR PLANO')
+        print(total_obitos_plano.set_index('PLANO'))
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 4:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR PLANO E MOTIVO')
+        print(obitos_plano)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 5:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR ESTADO')
+        print(total_obitos_estado)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 6:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR ESTADO E MOTIVO')
+        print(obitos_uf)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 7:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR INTERVALO DE IDADES')
+        print(total_obitos_intervalo_idades.set_index('INTERVALO_IDADES'))
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 8:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR INTERVALO DE IDADES E MOTIVO')
+        print(obitos_intervalo_idade)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 9:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR PLANO COM INTERVALO DE IDADES E MOTIVO')
+        print(obitos_plano_intervalo_idade)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 10:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR MÊS')
+        print(total_obitos_mes)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 11:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR MÊS E MOTIVO')
+        print(obitos_mes_motivo)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 12:
+        system('cls')
+        cabecalho('TOTAL DE ÓBITOS ANUAL POR ANOS E MESES')
+        print(df_total_obitos_mes_ano)
+        print(linha())
+        input('Enter para continuar...')
+
+    elif selecao == 13:
+        system('cls')
+        cabecalho('Saindo... Até a próxima.')
+        sleep(1)
+        system('cls')
+        break
+    
+    else:
+        print('Escolha uma opção válida.')
+
+    system('cls')
+    sleep(1)
+    
